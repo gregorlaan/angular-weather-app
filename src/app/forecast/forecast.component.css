@@ -1,0 +1,13 @@
+.forecast-list {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 1rem;
+}
+
+.forecast-list-item {
+    border: 1px solid #D3D3D3;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+}

@@ -2,61 +2,53 @@
 
   <h1>{{ weatherForecast.name }}</h1>
 
-  <div class="weather-current">
-    <h2>Today</h2>
+  <div *ngIf="weatherForecast.current" id="weather-current" class="jumbotron">
+    <div class="row">
 
-    <table style="width:100%; border: solid black" *ngIf="weatherForecast.current">
-      <tr>
-        <td>Temperature:</td>
-        <td>{{ weatherForecast.current.temp }}</td>
-      </tr>
-      <tr>
-        <td>Wind:</td>
-        <td>{{ weatherForecast.current.wind_speed }} {{ weatherForecast.current.wind_deg }}</td>
-      </tr>
-      <tr>
-        <td>Feels like:</td>
-        <td>{{ weatherForecast.current.feels_like }}</td>
-      </tr>
-      <tr>
-        <td>Pressure:</td>
-        <td>{{ weatherForecast.current.pressure }}</td>
-      </tr>
-      <tr>
-        <td>Humidity:</td>
-        <td>{{ weatherForecast.current.humidity }}</td>
-      </tr>
-    </table>
+      <div class="col-md-7">
+        <h2 class="display-3">Today</h2>
+        <p class="h2">{{ weatherForecast.current.dt | date: 'HH:mm' }}</p>
+      </div>
+
+      <div class="col-md-5">
+        <table class="table">
+          <tr>
+            <td>Temperature:</td>
+            <td>{{ weatherForecast.current.temp | number: '1.0-1' }} <span>°C</span></td>
+          </tr>
+          <tr>
+            <td>Wind:</td>
+            <td>{{ weatherForecast.current.wind_speed }} m/s {{ weatherForecast.current.wind_deg }} deg</td>
+          </tr>
+          <tr>
+            <td>Feels like:</td>
+            <td>{{ weatherForecast.current.feels_like }}</td>
+          </tr>
+          <tr>
+            <td>Pressure:</td>
+            <td>{{ weatherForecast.current.pressure }} <span>mmHg</span></td>
+          </tr>
+          <tr>
+            <td>Humidity:</td>
+            <td>{{ weatherForecast.current.humidity }} <span>%</span></td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
   </div>
 
   <div class="weather-daily">
     <h2>Forecast</h2>
 
-    <table style="width:100%; border: solid black" *ngFor="let forecast of weatherForecast.daily">
-      <tr colspan="2">
-        <td>Date:</td>
-        <td>{{ forecast.dt * 1000 | date: 'yyyy-MM-dd'}}</td>
-      </tr>
-      <tr>
-        <td>Temperature:</td>
-        <td>{{ forecast.temp.day }}</td>
-      </tr>
-      <tr>
-        <td>Wind:</td>
-        <td>{{ forecast.wind_speed }} {{ forecast.wind_deg }}</td>
-      </tr>
-      <tr>
-        <td>Feels like:</td>
-        <td>{{ forecast.feels_like.day }}</td>
-      </tr>
-      <tr>
-        <td>Pressure:</td>
-        <td>{{ forecast.pressure }}</td>
-      </tr>
-      <tr>
-        <td>Humidity:</td>
-        <td>{{ forecast.humidity }}</td>
-      </tr>
-    </table>
+    <div class="forecast-list">
+      <div class="forecast-list-item" *ngFor="let forecast of weatherForecast.daily | slice:1">
+        <h3>{{ forecast.dt * 1000 | date: 'EEE'}}</h3>
+
+        <p>{{ forecast.temp.day | number: '1.0-1' }} <span>°C</span></p>
+
+        <p>{{ forecast.wind_speed }} <span>m/s</span></p>
+      </div>
+    </div>
   </div>
 </div>
