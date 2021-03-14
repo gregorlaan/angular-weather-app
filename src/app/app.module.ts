@@ -4,19 +4,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER } from '@angular/core';
+
 import { ForecastComponent } from './forecast/forecast.component';
+import { WeatherService } from './weather.service';
+import { SearchComponent } from './search/search.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ForecastComponent
+    ForecastComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: weatherProviderFactory,
+      deps: [WeatherService],
+      multi: true
+      },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function weatherProviderFactory(provider: WeatherService) {
+  return () => provider.initCities();
+}

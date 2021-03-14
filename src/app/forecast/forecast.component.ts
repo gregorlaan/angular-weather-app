@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../weather.service';
+import { Weather } from '../weather';
 
 @Component({
   selector: 'app-forecast',
@@ -7,6 +8,7 @@ import { WeatherService } from '../weather.service';
   styleUrls: ['./forecast.component.css']
 })
 export class ForecastComponent implements OnInit {
+  public weatherForecast: Weather = <Weather>(<Weather>{});
 
   constructor(
     private weatherService: WeatherService
@@ -17,7 +19,8 @@ export class ForecastComponent implements OnInit {
   }
 
   getWeatherForecast(): void {
-    this.weatherService.getForecast
+    this.weatherService.getWeatherForecast()
+        .subscribe(forecast => this.weatherForecast = forecast);
   }
 
 }
