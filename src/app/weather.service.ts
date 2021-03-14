@@ -65,6 +65,10 @@ export class WeatherService {
                    });
   }
 
+  public getCitiesList(): City[] {
+    return this.citiesList;
+  }
+
   public getWeatherForecast(): BehaviorSubject<Weather> {
     return this.weatherForecast;
   }

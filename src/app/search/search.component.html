@@ -1,1 +1,5 @@
-<p>search works!</p>
+<div class="search-box my-5">
+    <ng-select [(ngModel)]="selectedCity" placeholder="Enter location" notFoundText="No locations were found" (change)="getWeatherForecast()">
+        <ng-option *ngFor="let city of citiesList" [value]="city">{{city.name}}</ng-option>
+    </ng-select>
+</div>

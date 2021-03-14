@@ -9,18 +9,21 @@ import { APP_INITIALIZER } from '@angular/core';
 import { ForecastComponent } from './forecast/forecast.component';
 import { WeatherService } from './weather.service';
 import { SearchComponent } from './search/search.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ForecastComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule,
+    FormsModule,
   ],
   providers: [
     {

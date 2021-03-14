@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../weather.service';
+import { City } from '../city';
 
 @Component({
   selector: 'app-search',
@@ -7,25 +8,28 @@ import { WeatherService } from '../weather.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  public citiesList:City[] = [];
+  public selectedCity: City = <City>{};
 
   constructor(
-    private weatherService: WeatherService
+    private weatherService: WeatherService,
   ) { }
 
   ngOnInit(): void {
+    this.getCitiesList();
     this.getWeatherForecast();
   }
 
-  getWeatherForecast(): void {
-    const dummyData = {
-      name: 'Tallinn',
-      location: {
-        lat: 58.3806,
-        lon: 26.7251
-      }
-    };
+  getCitiesList(): void {
+    this.citiesList = this.weatherService.getCitiesList();
+  }
 
-    this.weatherService.setWeatherForecast(dummyData);
+  getWeatherForecast(): void {
+    if(!this.selectedCity.name) {
+      return;
+    }
+
+    this.weatherService.setWeatherForecast(this.selectedCity);
   }
 
 }
