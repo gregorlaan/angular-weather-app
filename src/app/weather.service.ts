@@ -72,4 +72,8 @@ export class WeatherService {
   public getWeatherForecast(): BehaviorSubject<Weather> {
     return this.weatherForecast;
   }
+
+  public clearWeatherForecast() {
+    this.weatherForecast.next(<Weather>{});
+  }
 }

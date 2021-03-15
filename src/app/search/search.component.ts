@@ -25,11 +25,12 @@ export class SearchComponent implements OnInit {
   }
 
   getWeatherForecast(): void {
-    if(!this.selectedCity.name) {
-      return;
+    if(!this.selectedCity) {
+      this.weatherService.clearWeatherForecast();
     }
-
-    this.weatherService.setWeatherForecast(this.selectedCity);
+    else if(this.selectedCity.name) {
+      this.weatherService.setWeatherForecast(this.selectedCity);
+    }
   }
 
 }
