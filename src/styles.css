@@ -3,3 +3,15 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
+
+#app-loading-indicator {
+    background: #007bff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
