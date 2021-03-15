@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { cities } from './data/cities.json';
 import { City } from './city';
 import { Weather } from './weather';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,18 @@ export class WeatherService {
   private weatherForecast: BehaviorSubject<Weather> = new BehaviorSubject<Weather>(<Weather>{});
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
   ) { }
 
   async initCities(): Promise<void> {
+    const citiesList = this.localStorageService.getItem('citiesList');
+
+    if(citiesList) {
+      this.citiesList = JSON.parse(citiesList);
+      return;
+    }
+
     for(const city of cities) {
       const location = city + ',EE';
       this.apiCurrentWeatherUrl.searchParams.set('q', location);
@@ -32,8 +41,8 @@ export class WeatherService {
                        }
 
                        this.citiesList.push(currentCity);
+                       this.localStorageService.setItem('citiesList',  JSON.stringify(this.citiesList));
                      });
-
     }
   }
 
