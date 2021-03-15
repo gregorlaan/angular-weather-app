@@ -1,4 +1,4 @@
-<div *ngIf="weatherForecast">
+<div *ngIf="weatherForecast.name">
 
   <h1>{{ weatherForecast.name }}</h1>
 
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="weather-daily">
+  <div *ngIf="weatherForecast.daily" class="weather-daily">
     <h2>Forecast</h2>
 
     <div class="forecast-list">
